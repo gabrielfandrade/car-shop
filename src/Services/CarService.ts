@@ -19,13 +19,14 @@ class CarService {
       });
       return carsList;
     }
-    return null;
+    return [];
   }
 
   public async create(car: ICar) {
     const carODM = new CarODM();
     const newCar = await carODM.create(car);
-    return this.createCarDomain(newCar);
+    const domain = this.createCarDomain(newCar);
+    return domain;
   }
 
   public async getAll() {
@@ -33,11 +34,9 @@ class CarService {
 
     const cars = await carODM.getAll();
 
-    if (cars.length === 0) {
-      throw new Error('Car not found');
-    }
+    const domain = this.CarDomainList(cars);
 
-    return this.CarDomainList(cars);
+    return domain;
   }
 
   public async get(id: string) {
@@ -45,11 +44,13 @@ class CarService {
 
     const car = await carODM.get(id);
 
-    if (!car) {
+    const domain = this.createCarDomain(car);
+
+    if (!domain) {
       throw new Error('Car not found');
     }
 
-    return this.createCarDomain(car);  
+    return domain;  
   }
 }
 

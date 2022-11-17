@@ -10,6 +10,18 @@ class CarService {
     return null;
   }
 
+  private CarDomainList(cars: ICar[] | null): Car[] | null {
+    if (cars) {
+      const carsList: Car[] = [];
+      cars.forEach((car) => {
+        const carDomain = this.createCarDomain(car);
+        carsList.push(carDomain as Car);
+      });
+      return carsList;
+    }
+    return null;
+  }
+
   public async create(car: ICar) {
     const carODM = new CarODM();
     const newCar = await carODM.create(car);
@@ -18,8 +30,26 @@ class CarService {
 
   public async getAll() {
     const carODM = new CarODM();
+
     const cars = await carODM.getAll();
-    return cars;
+
+    if (cars.length === 0) {
+      throw new Error('Car not found');
+    }
+
+    return this.CarDomainList(cars);
+  }
+
+  public async get(id: string) {
+    const carODM = new CarODM();
+
+    const car = await carODM.get(id);
+
+    if (!car) {
+      throw new Error('Car not found');
+    }
+
+    return this.createCarDomain(car);  
   }
 }
 

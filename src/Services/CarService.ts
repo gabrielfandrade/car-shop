@@ -32,7 +32,7 @@ class CarService {
   public async getAll() {
     const carODM = new CarODM();
 
-    const cars = await carODM.getAll();
+    const cars = await carODM.readAll();
 
     const domain = this.CarDomainList(cars);
 
@@ -42,7 +42,7 @@ class CarService {
   public async get(id: string) {
     const carODM = new CarODM();
 
-    const car = await carODM.get(id);
+    const car = await carODM.readOne(id);
 
     const domain = this.createCarDomain(car);
 

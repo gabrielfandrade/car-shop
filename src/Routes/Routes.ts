@@ -11,12 +11,12 @@ routes.post(
 
 routes.get(
   '/cars',
-  (req, res, next) => new CarController(req, res, next).getAll(),
+  (req, res, next) => new CarController(req, res, next).readAll(),
 );
 
 routes.get(
   '/cars/:id',
-  (req, res, next) => new CarController(req, res, next).get(),
+  (req, res, next) => new CarController(req, res, next).readOne(),
 );
 
 routes.put(
@@ -27,6 +27,16 @@ routes.put(
 routes.post(
   '/motorcycles',
   (req, res, next) => new MotorcycleController(req, res, next).create(),
+);
+
+routes.get(
+  '/motorcycles',
+  (req, res, next) => new MotorcycleController(req, res, next).readAll(),
+);
+
+routes.get(
+  '/motorcycles/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).readOne(),
 );
 
 export default routes;

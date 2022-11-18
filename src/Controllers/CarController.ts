@@ -34,7 +34,7 @@ class CarController {
     }
   }
 
-  public async getAll() {
+  public async readAll() {
     try {
       const cars = await this.service.readAll();
       return this.res.status(200).json(cars);
@@ -43,7 +43,7 @@ class CarController {
     }
   }
 
-  public async get() {
+  public async readOne() {
     const { id } = this.req.params;
 
     try {

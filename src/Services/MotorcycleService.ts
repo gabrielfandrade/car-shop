@@ -31,6 +31,30 @@ class MotorcycleService {
 
     return domain;
   }
+
+  public async readAll() {
+    const motorcycleODM = new MotorcycleODM();
+
+    const motorcycles = await motorcycleODM.readAll();
+
+    const domain = this.MotorcycleDomainList(motorcycles);
+
+    return domain;
+  }
+
+  public async readOne(id: string) {
+    const motorcycleODM = new MotorcycleODM();
+
+    const motorcycle = await motorcycleODM.readOne(id);
+
+    const domain = this.createMotorcycleDomain(motorcycle);
+    
+    if (!domain) {
+      throw new Error('Motorcycle not found');
+    }
+
+    return domain;
+  }
 }
 
 export default MotorcycleService;

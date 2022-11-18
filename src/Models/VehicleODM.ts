@@ -38,7 +38,7 @@ abstract class VehicleODM<T> {
     return this.model.findByIdAndUpdate(
       { _id },
       { ...vehicle } as UpdateQuery<T>,
-      { new: false },
+      { new: true },
     );
   }
 }

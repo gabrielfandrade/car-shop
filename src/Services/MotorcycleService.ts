@@ -55,6 +55,20 @@ class MotorcycleService {
 
     return domain;
   }
+
+  public async update(id: string, motorcycle: IMotorcycle) {
+    const motorcycleODM = new MotorcycleODM();
+
+    const updatedMotorcycle = await motorcycleODM.update(id, motorcycle);
+
+    const domain = this.createMotorcycleDomain(updatedMotorcycle);
+
+    if (!domain) {
+      throw new Error('Motorcycle not found');
+    }
+
+    return domain;
+  }
 }
 
 export default MotorcycleService;

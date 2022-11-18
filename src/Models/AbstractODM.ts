@@ -7,7 +7,7 @@ import {
   UpdateQuery,
 } from 'mongoose';
 
-abstract class VehicleODM<T> {
+abstract class AbstractODM<T> {
   protected model: Model<T>;
   protected schema: Schema;
   protected modelName: string;
@@ -43,4 +43,4 @@ abstract class VehicleODM<T> {
   }
 }
 
-export default VehicleODM;
+export default AbstractODM;

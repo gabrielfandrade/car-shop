@@ -29,7 +29,7 @@ class CarService {
     return domain;
   }
 
-  public async getAll() {
+  public async readAll() {
     const carODM = new CarODM();
 
     const cars = await carODM.readAll();
@@ -39,7 +39,7 @@ class CarService {
     return domain;
   }
 
-  public async get(id: string) {
+  public async readOne(id: string) {
     const carODM = new CarODM();
 
     const car = await carODM.readOne(id);

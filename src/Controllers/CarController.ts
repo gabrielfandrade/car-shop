@@ -36,7 +36,7 @@ class CarController {
 
   public async getAll() {
     try {
-      const cars = await this.service.getAll();
+      const cars = await this.service.readAll();
       return this.res.status(200).json(cars);
     } catch (error) {
       this.next(error);
@@ -47,7 +47,7 @@ class CarController {
     const { id } = this.req.params;
 
     try {
-      const car = await this.service.get(id);
+      const car = await this.service.readOne(id);
       return this.res.status(200).json(car);
     } catch (error) {
       this.next(error);

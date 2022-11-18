@@ -52,3 +52,26 @@ export const carDomainList: Car[] = [
   carDomain,
   otherCarDomain,
 ];
+
+export const carInputUpdate: ICar = {
+  model: 'Marea',
+  year: 2005,
+  color: 'Black',
+  status: true,
+  buyValue: 15.990,
+  doorsQty: 4,
+  seatsQty: 5,
+};
+
+export const carOutputUpdated: ICar = {
+  id: '634852326b35b59438fbea2f',
+  model: 'Marea',
+  year: 2005,
+  color: 'Black',
+  status: true,
+  buyValue: 15.990,
+  doorsQty: 4,
+  seatsQty: 5,
+};
+
+export const carDomainUpdated: Car = new Car(carOutputUpdated);

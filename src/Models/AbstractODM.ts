@@ -44,12 +44,12 @@ abstract class AbstractODM<T> {
     );
   }
 
-  public async delete(_id: string) {
+  public async delete(_id: string): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error(INVALID_MONGO_ID);
 
     const result = await this.model.findByIdAndDelete(_id);
 
-    if (!result) throw new Error('Car not found');
+    return result;
   }
 }
 

@@ -2,6 +2,7 @@ import Motorcycle from '../Domains/Motorcycle';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
+const MOTO_NOT_FOUND = 'Motorcycle not found';
 class MotorcycleService {
   private createMotorcycleDomain(motorcycle: IMotorcycle | null): Motorcycle | null {
     if (motorcycle) {
@@ -50,7 +51,7 @@ class MotorcycleService {
     const domain = this.createMotorcycleDomain(motorcycle);
     
     if (!domain) {
-      throw new Error('Motorcycle not found');
+      throw new Error(MOTO_NOT_FOUND);
     }
 
     return domain;
@@ -64,10 +65,18 @@ class MotorcycleService {
     const domain = this.createMotorcycleDomain(updatedMotorcycle);
 
     if (!domain) {
-      throw new Error('Motorcycle not found');
+      throw new Error(MOTO_NOT_FOUND);
     }
 
     return domain;
+  }
+
+  public async delete(id: string) {
+    const motorcycleODM = new MotorcycleODM();
+
+    const result = await motorcycleODM.delete(id);
+
+    if (!result) throw new Error(MOTO_NOT_FOUND);
   }
 }
 

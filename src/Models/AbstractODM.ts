@@ -7,6 +7,8 @@ import {
   UpdateQuery,
 } from 'mongoose';
 
+const INVALID_MONGO_ID = 'Invalid mongo id';
+
 abstract class AbstractODM<T> {
   protected model: Model<T>;
   protected schema: Schema;
@@ -27,19 +29,27 @@ abstract class AbstractODM<T> {
   }
 
   public async readOne(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error('Invalid mongo id');
+    if (!isValidObjectId(_id)) throw new Error(INVALID_MONGO_ID);
 
     return this.model.findOne({ _id });
   }
 
   public async update(_id: string, vehicle: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error('Invalid mongo id');
+    if (!isValidObjectId(_id)) throw new Error(INVALID_MONGO_ID);
 
     return this.model.findByIdAndUpdate(
       { _id },
       { ...vehicle } as UpdateQuery<T>,
       { new: true },
     );
+  }
+
+  public async delete(_id: string) {
+    if (!isValidObjectId(_id)) throw new Error(INVALID_MONGO_ID);
+
+    const result = await this.model.findByIdAndDelete(_id);
+
+    if (!result) throw new Error('Car not found');
   }
 }
 

@@ -66,6 +66,12 @@ class CarService {
 
     return domain;
   }
+
+  public async delete(id: string) {
+    const carODM = new CarODM();
+
+    await carODM.delete(id);
+  }
 }
 
 export default CarService;

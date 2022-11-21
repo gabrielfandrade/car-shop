@@ -87,6 +87,28 @@ describe('Verifica o "Services" de "Motorcycle"', function () {
     },
   );
 
+  it('Verifica se é possível excluir uma moto', async function () {
+    sinon.stub(Model, 'findByIdAndDelete').resolves(motorcycleOutput);
+
+    try {
+      const motorcycleService = new MotorcycleService();
+      await motorcycleService.delete(ID);
+    } catch (error) {
+      expect((error as Error).message).not.to.be.equal(RESULT_ERROR);
+    }
+  });
+
+  it('Verifica se é gerado um erro ao excluir uma moto com ID invalido', async function () {
+    sinon.stub(Model, 'findByIdAndDelete').resolves();
+
+    try {
+      const motorcycleService = new MotorcycleService();
+      await motorcycleService.delete(ID);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal(RESULT_ERROR);
+    }
+  });
+
   afterEach(function () {
     sinon.restore();
   });

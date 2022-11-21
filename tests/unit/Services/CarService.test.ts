@@ -87,6 +87,28 @@ describe('Verifica o "Service" de "Car"', function () {
     },
   );
 
+  it('Verifica se é possível excluir um carro', async function () {
+    sinon.stub(Model, 'findByIdAndDelete').resolves(carOutput);
+
+    try {
+      const carService = new CarService();
+      await carService.delete(ID);
+    } catch (error) {
+      expect((error as Error).message).not.to.be.equal(RESULT_ERROR);
+    }
+  });
+
+  it('Verifica se é gerado um erro ao excluir um carro com ID invalido', async function () {
+    sinon.stub(Model, 'findByIdAndDelete').resolves();
+
+    try {
+      const carService = new CarService();
+      await carService.delete(ID);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal(RESULT_ERROR);
+    }
+  });
+
   afterEach(function () {
     sinon.restore();
   });

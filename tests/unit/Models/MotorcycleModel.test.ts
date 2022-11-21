@@ -12,6 +12,7 @@ import {
 
 const RESULT_ERROR = 'Invalid mongo id';
 const ID = '6348513f34c397abcad040b2';
+const INVALID_ID = '1';
 
 describe('Verifica a "Model" de "Motorcycle"', function () {
   it('Verifica se é possível cadastrar uma moto', async function () {
@@ -42,11 +43,9 @@ describe('Verifica a "Model" de "Motorcycle"', function () {
   });
 
   it('Verifica se é gerado um erro ao utilizar um id invalido', async function () {
-    const wrongId = '1';
-
     try {
       const motorcycleODM = new MotorcycleODM();
-      await motorcycleODM.readOne(wrongId);
+      await motorcycleODM.readOne(INVALID_ID);
     } catch (error) {
       expect((error as Error).message).to.be.equal(RESULT_ERROR);
     }
@@ -67,6 +66,24 @@ describe('Verifica a "Model" de "Motorcycle"', function () {
     try {
       const motorcycleODM = new MotorcycleODM();
       await motorcycleODM.update(wrongId, motorcycleInputUpdate);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal(RESULT_ERROR);
+    }
+  });
+
+  it('Verifica se é possível excluir uma moto', async function () {
+    sinon.stub(Model, 'findByIdAndDelete').resolves(motorcycleOutput);
+
+    const motorcycleODM = new MotorcycleODM();
+    const result = await motorcycleODM.delete(ID);
+
+    expect(result).to.be.deep.equal(motorcycleOutput);
+  });
+
+  it('Verifica se é gerado um erro ao excluir uma moto com ID invalido', async function () {
+    try {
+      const motorcycleODM = new MotorcycleODM();
+      await motorcycleODM.delete(INVALID_ID);
     } catch (error) {
       expect((error as Error).message).to.be.equal(RESULT_ERROR);
     }

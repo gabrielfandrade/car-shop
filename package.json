@@ -43,6 +43,7 @@
     "util": "0.12.4"
   },
   "dependencies": {
+    "chai-http": "^4.3.0",
     "express": "4.17.1",
     "mongoose": "6.1.8"
   }

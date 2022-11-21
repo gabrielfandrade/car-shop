@@ -26,21 +26,13 @@ class CarController {
       seatsQty: this.req.body.seatsQty,
     };
 
-    try {
-      const newCar = await this.service.create(car);
-      return this.res.status(201).json(newCar);
-    } catch (error) {
-      this.next(error);
-    }
+    const newCar = await this.service.create(car);
+    return this.res.status(201).json(newCar);
   }
 
   public async readAll() {
-    try {
-      const cars = await this.service.readAll();
-      return this.res.status(200).json(cars);
-    } catch (error) {
-      this.next(error);
-    }
+    const cars = await this.service.readAll();
+    return this.res.status(200).json(cars);
   }
 
   public async readOne() {

@@ -26,21 +26,13 @@ class MotorcycleController {
       engineCapacity: this.req.body.engineCapacity,
     };
 
-    try {
-      const newMotorcycle = await this.service.create(motorcycle);
-      return this.res.status(201).json(newMotorcycle);
-    } catch (error) {
-      this.next(error);
-    }
+    const newMotorcycle = await this.service.create(motorcycle);
+    return this.res.status(201).json(newMotorcycle);
   }
 
   public async readAll() {
-    try {
-      const motorcycles = await this.service.readAll();
-      return this.res.status(200).json(motorcycles);
-    } catch (error) {
-      this.next(error);
-    }
+    const motorcycles = await this.service.readAll();
+    return this.res.status(200).json(motorcycles);
   }
 
   public async readOne() {
